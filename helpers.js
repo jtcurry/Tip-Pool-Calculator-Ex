@@ -25,10 +25,15 @@ function appendTd(tr, value) {
 }
 
 function appendDeleteButton(tr) {
-  let newDeleteButton = document.createElement("td");
+  const newDeleteButton = document.createElement("td");
   newDeleteButton.innerText = "X";
-  newDeleteButton.addEventListener("click", function () {
-    newDeleteButton.parentElement.remove();
-  });
+  newDeleteButton.addEventListener("click", removeElementWithDelete);
   tr.append(newDeleteButton);
+}
+
+function removeElementWithDelete (event) {
+  let element = event.target.closest('tr');
+  delete allServers[element.id];
+  element.parentNode.removeChild(element);
+  updateServerTable();
 }
